@@ -1,80 +1,58 @@
 package com.Assignment.Bridlabz;
 
-public class Uc9 {
+public class Uc10 {
 
 	public static final int IS_FULL_TIME = 1;
 	public static final int IS_PART_TIME = 2;
+	static int numOfCompany=0;
+	public EmpWageBuilderArray[] companyEmpWageArray = new EmpWageBuilderArray[10];
 
-	private final String company;
-	private final int empRatePerHour;
-	private final int numOfWorkingDays;
-	private final int maxHrsPerMonth;
-	private int totalEmpWage;
 
-	public Uc9(String company, int empRatePerHour, int numOfWorkingDays, int maxHrsPerMonth) {
-		this.company = company;
-		this.empRatePerHour = empRatePerHour;
-		this.numOfWorkingDays = numOfWorkingDays;
-		this.maxHrsPerMonth = maxHrsPerMonth;
+	public void addCompanyEmpWage(String company,int empRatePerHour,int noOfWorkingDays,int maxHrsPerMonth) {
+		companyEmpWageArray[numOfCompany] = new EmpWageBuilderArray(company,empRatePerHour,noOfWorkingDays,maxHrsPerMonth);
+		numOfCompany++;
 	}
 
-	public int empCheck() {
-
-		int empCheck = (int) (Math.floor(Math.random() * 10) % 3);
-		int empHrs = 0;
-
-		switch (empCheck) {
-		case IS_FULL_TIME:
-			empHrs = 8;
-			System.out.println("Employee Full-Time");
-			break;
-
-		case IS_PART_TIME:
-			empHrs = 4;
-			System.out.println("Employee Part-Time");
-			break;
-
-		default:
-			empHrs = 0;
-			System.out.println("Employee Absent");
-			break;
+	public void computeEmpWage() {
+		for(int i = 0; i < numOfCompany; i++) {
+			companyEmpWageArray[i].setTotalEmpWage(this.computeWage(companyEmpWageArray[i]));
+			System.out.println(companyEmpWageArray[i]);
 		}
-		return empHrs;
 	}
 
-	public void wageCalculation() {
-
-		int totalEmpHrs = 0, totalWorkingDays = 0;
-
-		// Computation
-		while (totalWorkingDays < numOfWorkingDays && totalEmpHrs <= maxHrsPerMonth) {
+	public int empHrCheck() {
+		int empHr=0;
+		int empcheck=(int)Math.floor(Math.random()*10)%3;
+		switch(empcheck) {
+			case IS_PART_TIME:
+				empHr = 4;
+				break;
+			case IS_FULL_TIME:
+				empHr = 8;
+				break;
+			default:
+				empHr = 0;
+				break;
+		}
+		return empHr;
+	}
+	public int computeWage(EmpWageBuilderArray obj) {
+		int totalEmpHrs=0, totalWorkingDays=0;
+		while(totalEmpHrs<=obj.maxHrsPerMonth && totalWorkingDays<obj.noOfWorkingDays) {
 			totalWorkingDays++;
-			int empHrs = empCheck();
+			int empHrs = empHrCheck();
+			totalEmpHrs+=empHrs;
+			System.out.println("Day: "+totalWorkingDays+" Hours Worked:"+ empHrs);
 
-			int empWage = empHrs * empRatePerHour;
-			totalEmpWage += empWage;
-			System.out.println("Employee Wage for day " + totalWorkingDays + " is " + empWage);
-			totalEmpHrs += empHrs;
 		}
-		// System.out.println("Total Wage of Employee from company " + company + " is "
-		// + totalEmpWage);
-
+		return totalEmpHrs * obj.empRatePerHour;
 	}
-
-	public String toString() {
-		return "Total Employee Wage For Company " + company + " is " + totalEmpWage;
-	}
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		Uc9 reliance = new Uc9("Reliance", 15, 10, 50);
-		reliance.wageCalculation();
-		System.out.println(reliance);
-
-		Uc9 dMart = new Uc9("DMart", 20, 5, 30);
-		dMart.wageCalculation();
-		System.out.println(dMart);
+		Uc10 obj = new Uc10();
+		obj.addCompanyEmpWage("DMart",20,2,10);
+		obj.addCompanyEmpWage("NE", 10, 5, 20);
+		obj.addCompanyEmpWage("Reliance",20,2,10);
+		obj.computeEmpWage();
 
 	}
 }
