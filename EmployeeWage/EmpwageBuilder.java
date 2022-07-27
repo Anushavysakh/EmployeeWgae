@@ -1,12 +1,22 @@
 package com.Assignment.Bridlabz;
 
-public class Uc7 {
+public class Uc8 {
+
 	public static final int IS_FULL_TIME = 1;
 	public static final int IS_PART_TIME = 2;
-	public static final int EMP_RATE_PER_HOUR = 20;
-	public static final int NUM_OF_WORKING_DAYS = 20;
-	public static final int MAX_HRS_IN_MONTH = 100;
 
+	private final String company;
+	private final int empRatePerHour;
+	private final int numOfWorkingDays;
+	private final int maxHrsPerMonth;
+	
+	public Uc8(String company, int empRatePerHour, int numOfWorkingDays, int maxHrsPerMonth) {
+		this.company = company;
+		this.empRatePerHour = empRatePerHour;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHrsPerMonth = maxHrsPerMonth;
+	}
+	
 	public int empCheck() {
 
 		int empCheck = (int) (Math.floor(Math.random() * 10) % 3);
@@ -31,27 +41,34 @@ public class Uc7 {
 		return empHrs;
 	}
 
-	public int wageCalculation() {
-		
-		int totalEmpWage = 0;
-		int totalEmpHrs = 0;
-		int totalWorkingDays = 0;
+		public void wageCalculation() {
 
-		while (totalWorkingDays < NUM_OF_WORKING_DAYS && totalEmpHrs <= MAX_HRS_IN_MONTH) {
-			totalWorkingDays++;
-			int empHrs = empCheck();
-			int empWage = empHrs * EMP_RATE_PER_HOUR;
-			totalEmpWage += empWage;
-			System.out.println("Employee Wage for day " + totalWorkingDays + " is " + empWage);
-			totalEmpHrs += empHrs;
-		}
-		return totalEmpWage;
-	}
+			int totalEmpHrs = 0, totalWorkingDays = 0, totalEmpWage = 0;
 
-	public static void main(String args[]) {
-				Uc7 obj = new Uc7();
-				int totalWage = obj.wageCalculation();
-				System.out.println("Total Employee Wage - " + totalWage);
+			//Computation
+			while (totalWorkingDays < numOfWorkingDays &&
+					totalEmpHrs <= maxHrsPerMonth) {
+				totalWorkingDays++;
+				int empHrs = empCheck();
+
+				int empWage = empHrs * empRatePerHour;
+				totalEmpWage += empWage;
+				System.out.println("Employee Wage for day "+ totalWorkingDays + " is " + empWage);
+				totalEmpHrs += empHrs;
 			}
+			System.out.println("Total Wage of Employee from company " + company + " is " + totalEmpWage);
+
+		}
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Uc8 reliance = new Uc8("Reliance", 15, 10, 50);
+		reliance.wageCalculation();
+		
+		Uc8 dMart = new Uc8("DMart", 20, 5, 30);
+		dMart.wageCalculation();
+	}
 
 }
