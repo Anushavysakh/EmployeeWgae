@@ -1,25 +1,28 @@
 package com.Assignment.Bridlabz;
 
-public class uc2 {
+public class Uc3 {
 	public static void main(String[] args) {
-		
+
 		int IS_FULL_TIME = 1;
+		int IS_PART_TIME = 2;
 		int EMP_RATE_PER_HOUR = 20;
-		
+
 		int empHrs = 0;
 		int empWage = 0;
-		
-		double empCheck = Math.floor(Math.random() * 10) % 2;
-		
-		if(empCheck == IS_FULL_TIME) {
-			System.out.println("Employee Present..");
-			empHrs = 8;
-		} else {
+
+		double empCheck = Math.floor(Math.random() * 10) % 3;
+
+		if(empCheck == 0) {
 			System.out.println("Employee Absent..");
-			empHrs = 0;
+		empHrs=0;
+		} else if(empCheck == IS_FULL_TIME){
+			System.out.println("Employee Present and full-time employee");
+			empHrs=8;
+		}else {
+			System.out.println("Employee Present and part-time employee");
+			empHrs=4;
 		}
 		empWage = empHrs * EMP_RATE_PER_HOUR;
-		System.out.println("Daily wage of employee =  " + empWage);
-		
+		System.out.println("Daily wage of employee =  "+ empWage);
 	}
 }
