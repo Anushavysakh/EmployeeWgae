@@ -1,28 +1,36 @@
 package com.Assignment.Bridlabz;
 
-public class Uc3 {
-	public static void main(String[] args) {
+public class uc4 {
 
-		int IS_FULL_TIME = 1;
-		int IS_PART_TIME = 2;
-		int EMP_RATE_PER_HOUR = 20;
+	public static final int IS_FULL_TIME = 1;
+	public static final int IS_PART_TIME = 2;
+	public static final int EMP_RATE_PER_HOUR = 20;
+
+	public static void main(String args[]) {
 
 		int empHrs = 0;
 		int empWage = 0;
-
-		double empCheck = Math.floor(Math.random() * 10) % 3;
-
-		if(empCheck == 0) {
-			System.out.println("Employee Absent..");
-		empHrs=0;
-		} else if(empCheck == IS_FULL_TIME){
-			System.out.println("Employee Present and full-time employee");
-			empHrs=8;
-		}else {
-			System.out.println("Employee Present and part-time employee");
-			empHrs=4;
+		
+		int empCheck = (int) (Math.floor(Math.random() * 10) % 3);
+		
+		switch (empCheck) {
+			case IS_FULL_TIME:
+				empHrs = 8;
+				System.out.println("Employee Full-Time");
+				break;
+			
+			case IS_PART_TIME:
+				empHrs = 4;
+				System.out.println("Employee Part-Time");
+				break;
+			
+			default:
+				empHrs = 0;
+				System.out.println("Employee Absent");
+				break;
 		}
+		
 		empWage = empHrs * EMP_RATE_PER_HOUR;
-		System.out.println("Daily wage of employee =  "+ empWage);
+		System.out.println("Daily wage of employee =  " + empWage);
 	}
 }
